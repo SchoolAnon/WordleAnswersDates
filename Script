@@ -79,6 +79,8 @@ for _,v in pairs(T) do
 end
 for _,v in pairs(t) do
   if v == O then
-    print(w[_] .. "  " .. v)
+    print('The Wordle for ' .. os.date('%B %d %Y') .. ' Is' .. '\n' .. '----------------------------------')
+    print(w[_])
+    break
   end
 end
