@@ -8,8 +8,6 @@ local ChosenDate = {
 local FindWord = false --Set True To Search A Specific Word
 local WordToFind = 'rupee'
 
-
-
 --DONOTTOUCH
 function WordleScript(ADOn, ChosenDate, WordToFind, FindWord)
     local Current = os.date("%m/%d/%Y")
@@ -22,6 +20,7 @@ function WordleScript(ADOn, ChosenDate, WordToFind, FindWord)
     local Upper = string.upper(ChosenDate.month)
     local MonthsString = "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
     local MonthAB = string.find(MonthsString, Upper)
+    local WordFindLoop = true
     if MonthAB then
         MonthNumber = (MonthAB + 2) / 3
     else
@@ -204,15 +203,15 @@ function WordleScript(ADOn, ChosenDate, WordToFind, FindWord)
                     end
                 elseif FindWord == true then
                     if string.lower(v) == string.lower(WordToFind) then
-                        print(
-                            "The Word Was/Is '" .. string.upper(string.sub(WordToFind,0,1)) .. string.lower(string.sub(WordToFind,2,5)) .. "' On\n----------------------------------"
-                        )
+                        if WordFindLoop == true then
+                            print(
+                                "The Word Is '" .. string.upper(string.sub(WordToFind,0,1)) .. string.lower(string.sub(WordToFind,2,5)) .. "' On\n----------------------------------"
+                            )
+                            WordFindLoop = false
+                        end
                         NewDate = Date:gsub("/", "")
                         WTFDt = os.time {year = string.sub(NewDate, 5,8), month = string.sub(NewDate, 1,2), day = string.sub(NewDate, 3,4)}
                         print(os.date(SFormat, WTFDt))
-                        do
-                            return
-                        end
                     end
                 else
                     if Date == Current then
