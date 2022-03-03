@@ -1,5 +1,5 @@
 --Options
-local ADOn = false --Set True If You Want To Choose The Date
+local ADOn = true --Set True If You Want To Choose The Date
 local ChosenDate = {
     year = 6454,
     month = "mar", --3 letter abreviation
@@ -20,7 +20,7 @@ function WordleScript(ADOn, ChosenDate)
     if MonthAB then
         MonthNumber = (MonthAB + 2) / 3
     else
-        print "Invalid Month"
+        print "Error(Invalid Month)"
         return false
     end
     local NumericDT = os.time {year = ChosenDate.year, month = math.floor(MonthNumber), day = ChosenDate.day}
@@ -104,6 +104,10 @@ function WordleScript(ADOn, ChosenDate)
     end
 
     --ErrorCheckers
+    if ChosenDate.year >= 6454 then
+        print'Error(Year Too Big)'
+        return false
+    end
     for i, v in pairs(ShortMonths) do
         if (tostring("0" .. MonthNumber):gsub(".0", "") == v) or (tostring(MonthNumber):gsub(".0", "") == v) then
             if ChosenDate.day >= 31 then
