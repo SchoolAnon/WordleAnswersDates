@@ -1,14 +1,11 @@
---Options
-local ADOn = false --Set True If You Want To Choose The Date
+local ADOn
 local ChosenDate = {
     year = 2022,
-    month = "Jan", --3 letter abreviation
+    month = "Jan",
     day = 1
 }
-local FindWord = false --Set True To Search A Specific Word
-local WordToFind = 'rupee'
-
---DONOTTOUCH
+local FindWord
+local WordToFind
 function WordleScript(ADOn, ChosenDate, WordToFind, FindWord)
     local Current = os.date("%m/%d/%Y")
     local Day = 19
@@ -230,5 +227,27 @@ function WordleScript(ADOn, ChosenDate, WordToFind, FindWord)
             end
         end
     end
+end
+Input = io.read('*a')
+if Input == 'off\noff' then --Just Today's Wordle
+    print('ChosenDate = off\nFindWord = off')
+    print('----------------------------------')
+elseif string.find(Input, 'on\noff') then --ChosenDate
+    ADOn = true
+    ChosenDate.year = tonumber(string.sub(Input,8,11))
+    ChosenDate.day = tonumber(string.sub(Input,17,18))
+    ChosenDate.month = string.sub(Input,13,15)
+    print(ChosenDate.month)
+    print('ChosenDate = on\nFindWord = off')
+    print('----------------------------------')
+elseif string.find(Input,'off\non') then --FindWord
+    FindWord = true
+    WordToFind = string.sub(Input,8,12)
+    print('ChosenDate = off\nFindWord = on')
+    print('Searched For: "' .. WordToFind .. '"')
+    print('----------------------------------')
+elseif Input == 'on\non' then --Both True Error
+    print('Error(Only One Can Be Active)')
+    do return end
 end
 WordleScript(ADOn, ChosenDate, WordToFind, FindWord)
